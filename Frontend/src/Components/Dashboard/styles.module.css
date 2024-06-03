@@ -1,0 +1,77 @@
+body{
+	padding:0px;
+	margin:0px;
+	background-image: url('./main_background.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+.navbar {
+	width: 100%;
+	height: 70px;
+	position: relative;
+	background-color:#3bb19b;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.navbar h1{
+	color:white;
+}
+.navbar div{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap:20px;
+	font-size:25px;
+}
+.navbar div a{
+	text-decoration: none;
+	color:white;
+}
+.underline_on_click {
+	text-decoration: none;
+	color: #000;
+	position: relative;
+	padding-bottom: 5px; /* Space for the underline */
+}
+.appname{
+	color:white;
+}
+.underline_on_click::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 2px;
+	background-color: white;
+	transform: scaleX(0);
+	transform-origin: right;
+	transition: transform 0.3s ease;
+}
+
+.underline_on_click:active::after {
+	transform: scaleX(1);
+	transform-origin: left;
+}
+
+.navbar h1 {
+	color: white;
+	font-size: 25px;
+	margin-left: 20px;
+}
+
+.white_btn {
+	border: none;
+	outline: none;
+	padding: 12px 0;
+	background-color: white;
+	border-radius: 20px;
+	width: 120px;
+	font-weight: bold;
+	font-size: 14px;
+	cursor: pointer;
+	margin-right: 20px;
+}

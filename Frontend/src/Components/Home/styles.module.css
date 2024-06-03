@@ -1,0 +1,87 @@
+.homeContainer {
+  padding: 20px;
+
+}
+
+.playlistsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.headingBlock {
+  background: linear-gradient(0deg, rgba(34,195,169,1) 0%, rgba(45,154,253,1) 100%);
+  padding: 20px;
+  border-radius: 8px;
+  color: white; 
+  margin-bottom: 20px; 
+}
+
+.playlistCard {
+  background-color: cyan;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.playlistCard:hover {
+  transform: scale(1.05);
+}
+
+.playlistImage {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.playlistTitle {
+  margin: 10px;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.playlistDescription {
+  margin: 0 10px 10px;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.moviesGrid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.movieCard {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 200px;  /* Wider than before */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.movieImage {
+  width: 100%;
+  height: 120px;  /* Adjusted height to maintain aspect ratio with new width */
+  object-fit: cover;
+}
+
+.movieTitle {
+  margin: 10px;
+  font-size: 1.1em;  /* Slightly increased font size for better visibility with wider card */
+  color: #333;
+}
+
+.movieDescription {
+  margin: 0 10px 10px;
+  font-size: 0.9em;  /* Adjusted font size */
+  color: #666;
+}
