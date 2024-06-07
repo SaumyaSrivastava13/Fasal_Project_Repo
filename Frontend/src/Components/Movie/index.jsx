@@ -24,7 +24,9 @@ const Movie = (props) => {
   const [newPlaylist, setNewPlaylist] = useState("");
   const [selectedPlaylist, setSelectedPlaylist] = useState("");
   const [playlists, setPlaylists] = useState([]);
+  const [privacy, setPrivacy] = useState("private"); // State for privacy setting
   const navigate = useNavigate();
+
   const fetchPlaylists = async () => {
     try {
       const response = await axios.get(`http://localhost:8080/api/playlist?uid=${localStorage.getItem("uid")}`);
@@ -46,9 +48,14 @@ const Movie = (props) => {
     }
   };
 
-  const createPlaylist = async (playlistName) => {
+  const createPlaylist = async (playlistName, isPublic) => {
     try {
-      await axios.post('http://localhost:8080/api/playlist',{ name: playlistName, movies: [], uid: localStorage.getItem("uid") });
+      await axios.post('http://localhost:8080/api/playlist', {
+        name: playlistName,
+        movies: [],
+        uid: localStorage.getItem("uid"),
+        private: !isPublic
+      });
       fetchPlaylists();
     } catch (error) {
       console.error('Error creating playlist:', error);
@@ -66,17 +73,14 @@ const Movie = (props) => {
   const handleOpenPlaylistModal = () => setOpenPlaylistModal(true);
   const handleClosePlaylistModal = () => setOpenPlaylistModal(false);
   const handleCreatePlaylist = () => {
-    createPlaylist(newPlaylist);
+    createPlaylist(newPlaylist, privacy === "public");
     setNewPlaylist("");
-    handleClosePlaylistModal();
-    navigate('/dashboard');
   };
   const handleSubmit = () => {
     const movie = {
       imdbID: selectedMovie,
       Title: movieInfo.Title,
       Poster: movieInfo.Poster,
-      // add other movie details as needed
     };
     addMovieToPlaylist(selectedPlaylist, movie);
     handleClosePlaylistModal();
@@ -204,6 +208,18 @@ const Movie = (props) => {
             onChange={(e) => setNewPlaylist(e.target.value)}
             style={{ marginTop: "20px" }}
           />
+          <FormControl component="fieldset" style={{ marginTop: "20px" }}>
+            <FormLabel component="legend">Privacy</FormLabel>
+            <RadioGroup
+              aria-label="privacy"
+              name="privacy"
+              value={privacy}
+              onChange={(e) => setPrivacy(e.target.value)}
+            >
+              <FormControlLabel value="public" control={<Radio />} label="Public" />
+              <FormControlLabel value="private" control={<Radio />} label="Private" />
+            </RadioGroup>
+          </FormControl>
           <div className={styles.buttonGroup}>
             <Button
               variant="contained"

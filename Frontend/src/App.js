@@ -6,11 +6,10 @@ import SearchBar from "./Components/SearchBar";
 
 
 function App() {
-    const user = localStorage.getItem("token");
 
     return (
         <Routes>
-            {user && <Route path="/dashboard" exact element={<Dashboard />} />}
+            <Route path="/dashboard" exact element={<Dashboard />} />
             <Route path="/signup" exact element={<Signup />} />
             <Route path="/login" exact element={<Login />} />
             <Route path="/" element={<Navigate replace to="/login" />} />

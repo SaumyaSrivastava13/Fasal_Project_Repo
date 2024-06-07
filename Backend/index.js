@@ -7,7 +7,7 @@ const authRoutes = require("./routes/auth");
 const playlistRoutes = require("./routes/playlist");
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/movie_users')
+mongoose.connect('mongodb+srv://saumya13:z1m5yURo0nOqQMUQ@odb.jqq0yxi.mongodb.net/?retryWrites=true&w=majority&appName=ODB')
 .then(()=>{console.log("DB Connected")})
 .catch((err)=>{console.log(err)});
 

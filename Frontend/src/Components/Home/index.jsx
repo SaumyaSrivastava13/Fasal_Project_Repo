@@ -6,12 +6,32 @@ const Home = () => {
   const [playlists, setPlaylists] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
   const [error, setError] = useState(null);
+  const [images, setImages] = useState([]);
+
+  const fetchRandomImage = async () => {
+    try {
+        const response = await axios.get(`https://api.unsplash.com/search/photos?query=movie&client_id=pqTf7-alMchSv4rvgAHVpoLtWbt7D0W7sahXsj6vK_I`);
+        if (response.status === 200) {
+          let temp = [];
+          for (let i = 0; i < response.data.results.length; i++) {
+              temp.push(response.data.results[i].urls.regular);
+          }
+          return temp;
+        } else {
+            console.log(`Error: ${response.status}, ${response.statusText}`);
+        }
+    } catch (error) {
+        console.error(`Error fetching the image: ${error.message}`);
+    }
+}
 
   const fetchPlaylists = async () => {
     try {
       const response = await axios.get(`http://localhost:8080/api/playlist?uid=${localStorage.getItem("uid")}`);
       setPlaylists(response.data.playlists);
-      setError(null); // Reset error state on successful fetch
+      let img = await fetchRandomImage();
+      setImages(img);
+      setError(null); 
     } catch (error) {
       console.error('Error fetching playlists:', error);
       setError('Failed to fetch playlists. Please try again later.');
@@ -56,6 +76,7 @@ const Home = () => {
         {playlists.length > 0 ? (
           playlists.map((playlist) => (
             <div className={styles.playlistCard} key={playlist.puid} onClick={() => handlePlaylistClick(playlist.puid)}>
+              <img className="imgs" height="100px" width="100%" src={images[Math.floor(Math.random() * 10)]} />
               <div className={styles.playlistInfo}>
                 <h2 className={styles.playlistTitle}>{playlist.name}</h2>
                 <p className={styles.playlistDescription}>{playlist.description}</p>

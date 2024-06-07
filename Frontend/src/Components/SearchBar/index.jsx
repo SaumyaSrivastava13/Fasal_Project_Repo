@@ -5,7 +5,7 @@ import Movie from '../Movie';
 import SearchIcon from "./output-onlinegiftools.gif";
 import { useNavigate } from 'react-router-dom';
 
-const API_URL = "http://www.omdbapi.com?apikey=3018d9fc";
+const API_URL = "https://www.omdbapi.com?apikey=3018d9fc";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");

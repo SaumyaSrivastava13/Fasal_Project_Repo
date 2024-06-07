@@ -11,12 +11,16 @@ router.get("/playlist", async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "User not found." });
         }
-        const playlists = await Playlist.find({ user: user._id });
+        const playlists = await Playlist.find({ $or: [{ user: user._id }, { private: false }] });
         return res.status(200).json({ playlists }); // Change status to 200
     } catch (error) {
         return res.status(500).json({ message: `Oops! An error occurred: ${error}` }); // Correct typo
     }
 });
+
+
+
+
 
 router.post("/playlist", async (req, res) => {
     try {
@@ -24,7 +28,7 @@ router.post("/playlist", async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "User not found." });
         }
-        const { name } = req.body;
+        const { name, private: isPrivate } = req.body; // Destructure isPrivate from request body
         if (!name) {
             return res.status(400).json({ message: "Required fields not present." });
         }
@@ -32,7 +36,7 @@ router.post("/playlist", async (req, res) => {
         if (existingPlaylist) {
             return res.status(400).json({ message: "A playlist with this name already exists." });
         }
-        await Playlist.create({ user: user._id, puid: uuidv4(), name: name.trim(), private: false });
+        await Playlist.create({ user: user._id, puid: uuidv4(), name: name.trim(), private: isPrivate });
         return res.status(201).json({ message: "Playlist created successfully." });
     } catch (error) {
         console.error(error); // Log error

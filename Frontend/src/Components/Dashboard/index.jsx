@@ -2,7 +2,9 @@ import styles from "./styles.module.css";
 import { useNavigate } from 'react-router-dom';
 import Home from '../Home'
 const Dashboard = () => {
+	const user = localStorage.getItem("token"); 
 	const navigate = useNavigate();
+	if (!user) navigate('/login');
 	const handleLogout = () => {
 		localStorage.removeItem("token");
 		navigate('/login');
